@@ -1,10 +1,10 @@
 package ds.anosov.Steps;
 
-import ds.anosov.Page.BasePage;
+
 import ds.anosov.Page.RegistrationPage;
 import io.qameta.allure.Step;
 
-public class RegistrationMailSteps extends BasePage {
+public class RegistrationMailSteps {
 
     RegistrationPage registrationPage = new RegistrationPage();
 

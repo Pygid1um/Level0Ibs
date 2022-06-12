@@ -1,14 +1,13 @@
 package ds.anosov.Page;
 
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
 
     SelenideElement mainEnterButtonInput = $x("//button[@data-testid='enter-mail-primary']");
+    SelenideElement registrationFrameInput = $x("//iframe[@class='ag-popup__frame__layout__iframe']");
     SelenideElement loginInput = $x("//input[@name='username']");
     SelenideElement passwordEnterButtonInput = $x("//button[@data-test-id='next-button']");
     SelenideElement passwordInput = $x("//input[@name='password']");
@@ -23,8 +22,8 @@ public class RegistrationPage {
         mainEnterButtonInput.click();
     }
 
-
     public void inputRegistrationData(String LOGIN, String PASSWORD) {
+        switchTo().frame(registrationFrameInput);
         loginInput.setValue(LOGIN);
         passwordEnterButtonInput.click();
         passwordInput.setValue(PASSWORD);

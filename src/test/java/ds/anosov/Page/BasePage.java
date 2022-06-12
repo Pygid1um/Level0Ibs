@@ -8,11 +8,12 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class BasePage {
 
-    @BeforeAll
-    static void setUp() {
+@BeforeAll
+    public static void setUp() {
         Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = true; // удалить
         SelenideLogger.addListener("allure", new AllureSelenide());
+
 
 
     }

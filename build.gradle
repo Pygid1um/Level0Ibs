@@ -11,14 +11,25 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
+project.ext {
+    cucumberVersion = '7.3.4'
+}
+
 dependencies {
     testImplementation(
             "com.codeborne:selenide:6.4.0",
             "org.junit.jupiter:junit-jupiter:5.8.2",
             'io.qameta.allure:allure-selenide:2.17.3',
-           // 'io.cucumber', name: 'cucumber-java', version: '7.3.4',
+            'io.cucumber:cucumber-java:' + cucumberVersion,
+            'io.cucumber:cucumber-junit:7.3.4',
             "org.slf4j:slf4j-simple:1.7.36"
     )
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
 allure {
@@ -35,6 +46,21 @@ allure {
     }
 }
 
-test {
-    useJUnitPlatform()
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'html:reports/test-report', '--plugin', 'pretty', '--glue',
+                    'ds.anosov.Runner', 'src/test/resources']
+        }
+    }
 }
+
+
+
+    test {
+        useJUnitPlatform()
+    }
