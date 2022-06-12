@@ -1,4 +1,4 @@
-package ds.anosov;
+package Algorithms;
 
 import java.util.Scanner;
 
